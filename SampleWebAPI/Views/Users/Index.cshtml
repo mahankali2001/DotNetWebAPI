@@ -1,0 +1,32 @@
+﻿@section css {
+    <link rel="stylesheet" href="~/css/app.css"/>	
+}
+<div>
+<ul class="menu">
+    <li><a onclick="goTo('/users/');">Users</a></li>
+    <!-- <li><a href="#/user1?uid=25">User1</a></li>
+    <li><a href="#/user2?uid=26">User2</a></li> -->    
+    <li><a onclick="goTo('/users/manage/?uid=0');">New User</a></li>
+</ul>
+</div>
+<br/>
+<table border='1' id='Users'>
+    <!--Make a Header Row-->
+      <tr>
+        <td><b>User ID</b></td>
+        <td><b>First Name</b></td>
+        <td><b>Last Name</b></td>
+        <td><b>Delete</b></td>
+        <td><b>Copy</b></td>
+      </tr>
+</table>
+
+@section scripts {
+    <script src="~/Scripts/users.js" type="text/javascript" ></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            GetAllUsers();
+        });
+    </script>
+}
