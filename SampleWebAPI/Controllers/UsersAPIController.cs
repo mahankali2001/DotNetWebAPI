@@ -63,7 +63,9 @@ namespace SampleWebAPI.Controllers
         {
             ur.RemoveUser(Int32.Parse(id));
         }
-        public void Copy(string id)
+
+        [System.Web.Http.ActionName("Copy")]
+        public void CopyUser(string id)
         {
             ur.CopyUser(Int32.Parse(id));
         }
