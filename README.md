@@ -1,7 +1,7 @@
 # DotNetWebAPI
 
 Technologies used - 
-Flow1- JQuery, ASP.NET MVC, ASP.NET WEB API, ADO.NET
+Flow1- JQuery (AJAX Calls), ASP.NET MVC (Controller/Views - optional, html page is good enough just used this to see the coexistence of ASP.NET MVC, Web API), ASP.NET WEB API (REST Service Implementation), ADO.NET
 
 References
 
