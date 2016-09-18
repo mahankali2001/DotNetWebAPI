@@ -67,22 +67,26 @@ function ManageUser()
     };
     $.ajax({
         type: method,
-                    url: "http://localhost:60520/api/usersapi/",
-                    data: JSON.stringify(UserData),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    processData: true,
-                    success: function (data, status, jqXHR) {
-                        //stringify
-                        var jsonData = JSON.stringify(data);
-                        //Parse JSON
-                        var objData = $.parseJSON(jsonData);
-                        var uid = objData.uid;
-                        $('#uid').text(uid);
-                    },
-                error: function (xhr) {
-                        alert(xhr.responseText);
-                    }
+        url: "http://localhost:60520/api/usersapi/",
+        data: JSON.stringify(UserData),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        processData: true,
+        success: function (data, status, jqXHR) {
+            //stringify
+            var jsonData = JSON.stringify(data);
+            //Parse JSON
+            var objData = $.parseJSON(jsonData);
+            var uid = objData.uid;
+            $('#uid').text(uid);
+            if(method =="POST")
+                $('#operation').text("User created successfully!");    
+            else
+                $('#operation').text("User saved successfully!");    
+        },
+        error: function (xhr) {
+                alert(xhr.responseText);
+            }
     });
 }
 
@@ -136,7 +140,7 @@ function CopyUser(uid) {
         contentType: "json",
         dataType: "json",
         success: function (data) {
-            alert("successs…. ");
+            goTo("/users/");
         },
         error: function (xhr) {
             alert(xhr.responseText);

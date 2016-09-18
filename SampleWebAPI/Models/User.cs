@@ -52,7 +52,8 @@ namespace SampleWebAPI.Models
             //sqlParameterList.Add<int>("@uid", user.uid);
             //sqlParameterList.Add<bool>("@IsActive", user.IsActive);
 
-            return AdoNetImpl.Instance.ExecuteInsertStoredProcedure("User_Insert", sqlParameterList, user);
+            AdoNetImpl.Instance.ExecuteInsertStoredProcedure("User_Insert", sqlParameterList, user);
+            return user.Id;
         }
 
         public int Update(User user)

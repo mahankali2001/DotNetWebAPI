@@ -33,7 +33,7 @@ namespace SampleWebAPI.Repository
         }
         public User AddUser(User user)
         {
-            users.Insert(user);
+            user.uid = users.Insert(user);
             return user;
         }
         public User UpdateUser(User user)
