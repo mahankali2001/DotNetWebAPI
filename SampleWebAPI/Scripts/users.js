@@ -30,27 +30,31 @@ function GetAllUsers()
 //GET
 function GetUserById(uid)
 {
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:60520/api/usersapi/" + uid,
-        contentType: "json",
-        dataType: "json",
-        success: function (data) {
-            //stringify
-            var jsonData = JSON.stringify(data);
-            //Parse JSON
-            var objData = $.parseJSON(jsonData);
-            var uid = objData.uid;
-            var fname = objData.firstName;
-            var lname = objData.lastName;
-            $('#uid').text(uid);
-            $('#firstName').val(fname);
-            $('#lastName').val(lname);
-        },
-        error: function (xhr) {
-            alert(xhr.responseText);
-        }
-    });
+    if (uid == 0)
+        $('#uid').text(uid);
+    else {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:60520/api/usersapi/" + uid,
+            contentType: "json",
+            dataType: "json",
+            success: function(data) {
+                //stringify
+                var jsonData = JSON.stringify(data);
+                //Parse JSON
+                var objData = $.parseJSON(jsonData);
+                var uid = objData.uid;
+                var fname = objData.firstName;
+                var lname = objData.lastName;
+                $('#uid').text(uid);
+                $('#firstName').val(fname);
+                $('#lastName').val(lname);
+            },
+            error: function(xhr) {
+                alert(xhr.responseText);
+            }
+        });
+    }
 }
 
 //ADD or CREATE
