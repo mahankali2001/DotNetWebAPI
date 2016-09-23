@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using SampleApp.Core.Data;
 
-namespace SampleWebAPI.Models
+namespace SampleWebAPI.Entities
 {
     public class User : AbstractModel
     {

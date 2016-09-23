@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SampleWebAPI.Entities.Common
+namespace SampleApp.Core.Entities.Common
 {
         public class PagedResult<T> : IEnumerable where T : class
         {

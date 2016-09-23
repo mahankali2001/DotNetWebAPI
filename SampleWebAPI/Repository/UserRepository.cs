@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using SampleApp.Core.Data;
-using SampleWebAPI.Models;
+using SampleWebAPI.Entities;
 
 namespace SampleWebAPI.Repository
 {

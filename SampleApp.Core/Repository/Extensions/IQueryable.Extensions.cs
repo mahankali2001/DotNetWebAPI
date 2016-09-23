@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.Entity;
 
-namespace SampleWebAPI.Repository.Extenstion
+namespace SampleApp.Core.Repository.Extenstion
 {
     internal static class IQueryableExtension
     {

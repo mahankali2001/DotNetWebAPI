@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Data.Entity;
 //using System.Data.Objects;
-using System.Data.Entity.Infrastructure;
 using System.Data;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using System.Data.Common;
-using SampleWebAPI.Models;
+using SampleWebAPI.Entities;
 
-namespace SampleWebAPI.Context
+namespace SampleApp.Core.Context
 {
     public class RepositoryContext : DbContext
     {
@@ -53,6 +52,7 @@ namespace SampleWebAPI.Context
 
             //modelBuilder.Entity<TEMPLATEEntity>();
             modelBuilder.Entity<User>();
+            modelBuilder.Entity<JQGUser>();
             //modelBuilder.HasDefaultSchema("dbo").Entity<DBEntities.EmailAttributes>();
             //modelBuilder.Entity<DBEntities.EmailAttributes>();
             #endregion

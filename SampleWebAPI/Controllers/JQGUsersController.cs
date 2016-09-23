@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
-using SampleWebAPI.Models;
+using SampleApp.Core.Configuration;
+using SampleApp.Core.Context;
+using SampleWebAPI.DTO;
+using SampleWebAPI.Entities;
 using SampleWebAPI.Repository;
 
 namespace SampleWebAPI.Controllers
@@ -25,49 +32,79 @@ namespace SampleWebAPI.Controllers
             return View();
         }
 
-        
-        //User[] users = new User[]
-        //{
-        //new User { uid = 1, firstName= "AF", lastName= "AL"},
-        //new User { uid = 2, firstName= "BF", lastName= "BL"},
-        //new User { uid = 3, firstName= "CF", lastName= "CL"},
-        //};
-        //public IEnumerable<User> GetUsers()
-        //{
-        //    return users;
-        //}
+        private static DbConnection connection = new SqlConnection(ConfigurationManager.GetAppSettingsValue("ConnectionString"));
+        private static RepositoryContext context = new RepositoryContext(connection);
+        private JQGUserRepository jqgUR = new JQGUserRepository(context);
+        public JsonResult GetUsersLists(string sidx, string sord, int page, int rows)  //Gets the user Lists.
+        {
+            int pageIndex = Convert.ToInt32(page) - 1;
+            int pageSize = rows;
 
-        //private UserRepository ur = new UserRepository();
+            DTOPage<UserResponse> ur =  jqgUR.GetUsers(sidx, sord, page, rows);
+            
+            var jsonData = new
+            {
+                total = ur.PageCount,
+                page,
+                records = ur.RowCount,
+                rows = ur.Results
+            };
+            return Json(jsonData, JsonRequestBehavior.AllowGet);
+        }
 
-        ////UserRepository ur =  new UserRepository();
-        ////public IEnumerable<User> Get() 
-        //public List<User> Get()
-        //{
-        //    //return users;
-
-        //    //userList.Add(new User {uid = 1, firstName = "AF", lastName = "AL"});
-        //    //userList.Add(new User {uid = 2, firstName = "BF", lastName = "BL"});
-        //    //userList.Add(new User {uid = 3, firstName = "CF", lastName = "CL"});
-        //    //return userList;
-
-        //    return ur.GetAllUsers();
-        //}
-        //public User Get(string id)
-        //{
-        //    return ur.GetUser(id);
-        //}
-        //public void Post(User user)
-        //{
-        //    ur.AddUser(user);
-        //}
-        //public void Put(User user)
-        //{
-        //    ur.UpdateUser(user);
-        //}
-        //public void Delete(string id)
-        //{
-        //    ur.RemoveUser(id);
-        //}
+        // TODO:insert a new row to the grid logic here
+        /*[HttpPost]
+        public string Create([Bind(Exclude = "Id")] TodoList objTodo)
+        {
+            string msg;
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.TodoLists.Add(objTodo);
+                    db.SaveChanges();
+                    msg = "Saved Successfully";
+                }
+                else
+                {
+                    msg = "Validation data not successfull";
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "Error occured:" + ex.Message;
+            }
+            return msg;
+        }
+        public string Edit(TodoList objTodo)
+        {
+            string msg;
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(objTodo).State = EntityState.Modified;
+                    db.SaveChanges();
+                    msg = "Saved Successfully";
+                }
+                else
+                {
+                    msg = "Validation data not successfull";
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "Error occured:" + ex.Message;
+            }
+            return msg;
+        }
+        public string Delete(int Id)
+        {
+            TodoList todolist = db.TodoLists.Find(Id);
+            db.TodoLists.Remove(todolist);
+            db.SaveChanges();
+            return "Deleted successfully";
+        }*/
 
     }
 }

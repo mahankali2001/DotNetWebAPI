@@ -9,7 +9,7 @@ using SampleWebAPI.Repository;
 
 namespace SampleWebAPI.Controllers
 {
-    public class UsersAPIController : ApiController
+    public class JQGUsersAPIController : ApiController
     {
         //
         // GET: /User/
@@ -69,5 +69,20 @@ namespace SampleWebAPI.Controllers
         {
             ur.CopyUser(Int32.Parse(id));
         }
+
+        [System.Web.Http.ActionName("Copy")]
+        public JsonResult JQGGet()
+        {
+            //return users;
+
+            //userList.Add(new User {uid = 1, firstName = "AF", lastName = "AL"});
+            //userList.Add(new User {uid = 2, firstName = "BF", lastName = "BL"});
+            //userList.Add(new User {uid = 3, firstName = "CF", lastName = "CL"});
+            //return userList;
+
+            //return ur.GetAllUsers();
+            return null;
+        }
+
     }
 }

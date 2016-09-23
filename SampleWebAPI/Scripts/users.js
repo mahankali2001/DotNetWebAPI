@@ -176,5 +176,5 @@ function GetQueryStringParams(sParam) {
 }
 
 function goTo(url) {
-    window.location = "http://"+$(location).attr('host') + url;
+    window.location = "http://" + $(location).attr('host') + url; //http://stackoverflow.com/questions/406192/get-current-url-in-javascript - hostname, port, protocol, pathname, href, hash, search
 }

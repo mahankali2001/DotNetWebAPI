@@ -39,7 +39,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -122,30 +124,20 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Context\DatabaseContext.cs" />
-    <Compile Include="Context\IDatabaseContext.cs" />
-    <Compile Include="Context\RepositoryContext.cs" />
+    <Compile Include="Controllers\JQGUsersAPIController.cs" />
     <Compile Include="Controllers\JQGUsersController.cs" />
     <Compile Include="Controllers\UsersAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Entities\Common\IPagedList.cs" />
-    <Compile Include="Entities\Common\PagedList.cs" />
-    <Compile Include="Entities\Common\PagedResult.cs" />
-    <Compile Include="Entities\Models\User.cs" />
+    <Compile Include="DTO\DTOPage.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\EntityRepository.cs" />
-    <Compile Include="Repository\Extensions\IDbSet.Extensions.cs" />
-    <Compile Include="Repository\Extensions\IQueryable.Extensions.cs" />
     <Compile Include="Repository\JQGUserRepository.cs" />
-    <Compile Include="Repository\NavigationBackupSet.cs" />
+    <Compile Include="DTO\User.cs" />
     <Compile Include="Repository\UserRepository.cs" />
-    <Compile Include="Utility\Helper.Exception.cs" />
-    <Compile Include="Utility\Pager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -260,7 +252,9 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Users\Index.cshtml" />

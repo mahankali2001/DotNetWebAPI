@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema; //add
 using System.Reflection;
-//using System.Data.Metadata.Edm;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 
-namespace SampleWebAPI.Repository
+namespace SampleApp.Core.Repository
 {
-
     /// <summary>
     /// Helper used to back up and nullify the navigation properties of entities before performing an EF operation like Save or Delete
     /// The backed up properties are then restored after performing the EF operation

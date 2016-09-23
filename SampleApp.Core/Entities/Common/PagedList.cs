@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SampleApp.Core.Entities.Common;
 
-namespace SampleWebAPI.Entities.Common
+namespace SampleApp.Core.Entities.Common
 {
     public class PagedList<T> : List<T>, IPagedList
     {

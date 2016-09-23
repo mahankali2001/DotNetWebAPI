@@ -3,7 +3,7 @@ using System.Linq;
 using System.Data;
 using System.Collections.Generic;
 
-namespace SampleWebAPI.Utility
+namespace SampleApp.Core.Utility
 {
     public static class Helper
     {

@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace SampleWebAPI.Context
+namespace SampleApp.Core.Context
 {
     using System;
     using System.Collections.Generic;

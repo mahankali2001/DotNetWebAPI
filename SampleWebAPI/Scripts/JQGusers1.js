@@ -3,17 +3,21 @@
         url: "/JQGUsers/GetUsersLists",
         datatype: 'json',
         mtype: 'Get',
-        colNames: ['uid', 'Firs Name', 'Last Name'],
+        colNames: ['uid', 'Firs Name', 'Last Name']//,'DOB','Gender','Active'],
         colModel: [
-            { key: true, name: 'uid', index: 'uid', editable: true },
-            { key: false, name: 'firstName', index: 'firstName', editable: true },
-            { key: false, name: 'lastName', index: 'lastName', editable: true } ],
+            { key: true, hidden: true, name: 'Id', index: 'Id', editable: true },
+            { key: false, name: 'First Name', index: 'firstName', editable: true },
+            { key: false, name: 'Last Name', index: 'lastName', editable: true }
+			//, { key: false, name: 'DOB', index: 'DOB', editable: true, formatter: 'date', formatoptions: { newformat: 'd/m/Y' } },
+            //{ key: false, name: 'Gender', index: 'Gender', editable: true, edittype: 'select', editoptions: { value: { 'F': 'Female', 'M': 'Male' } } },
+            //{ key: false, name: 'Active', index: 'Active', editable: true, edittype: 'select', editoptions: { value: { 'A': 'Active', 'I': 'InActive' } } }
+			],
         pager: jQuery('#pager'),
         rowNum: 10,
         rowList: [10, 20, 30, 40],
         height: '100%',
         viewrecords: true,
-        caption: 'User List',
+        caption: 'Users',
         emptyrecords: 'No records to display',
         jsonReader: {
             root: "rows",
@@ -29,7 +33,7 @@
         {
             // edit options
             zIndex: 100,
-            url: '/JQGUsers/Edit',
+            url: '/JQGUser/Edit',
             closeOnEscape: true,
             closeAfterEdit: true,
             recreateForm: true,
@@ -42,7 +46,7 @@
         {
             // add options
             zIndex: 100,
-            url: "/JQGUsers/Create",
+            url: "/JQGUser/Create",
             closeOnEscape: true,
             closeAfterAdd: true,
             afterComplete: function (response) {
@@ -54,11 +58,11 @@
         {
             // delete options
             zIndex: 100,
-            url: "/JQGUsers/Delete",
+            url: "/JQGUser/Delete",
             closeOnEscape: true,
             closeAfterDelete: true,
             recreateForm: true,
-            msg: "Are you sure you want to delete this user?",
+            msg: "Are you sure you want to delete this task?",
             afterComplete: function (response) {
                 if (response.responseText) {
                     alert(response.responseText);

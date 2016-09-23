@@ -2,10 +2,10 @@
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using SampleWebAPI.Context;
-using SampleWebAPI.Utility;
+using SampleApp.Core.Context;
+using SampleApp.Core.Utility;
 
-namespace SampleWebAPI.Repository
+namespace SampleApp.Core.Repository
 {
     public interface IEntityRepository
     {

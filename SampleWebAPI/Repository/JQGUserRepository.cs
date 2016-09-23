@@ -1,19 +1,23 @@
 ﻿using System.Collections.ObjectModel;
-using SampleWebAPI.Context;
-using SampleWebAPI.Models;
+using SampleApp.Core.Context;
+using SampleApp.Core.Entities.Common;
+using SampleApp.Core.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
 using System.Data.Common;
+using SampleWebAPI.DTO;
+using SampleWebAPI.Entities;
 
 namespace SampleWebAPI.Repository
 {
     public interface IJQGUserRepository : IEntityRepository
     {
         string GetHello(string name);
-        DataTable GetUsers();
+        //DataTable GetUsers();
+        DTOPage<UserResponse> GetUsers(string sidx, string sord, int page, int rows);
 
         DataTable GetPagedUsers(int uid, int pageIndex, int pageSize, string filters, string sortColumn,
                            string sortOrder, int active);
@@ -36,9 +40,53 @@ namespace SampleWebAPI.Repository
             return String.Format("Hello {0}", name);
         }
 
-        public DataTable GetUsers()
+        public DTOPage<UserResponse> GetUsers(string sidx, string sord, int pageIndex, int pageSize)  //Gets the todo Lists.
         {
-             return this.DatabaseContext.ExecuteReader("select * from [dbo].[user]", CommandType.Text , null);
+            var userListsResults = from u in this.Read<JQGUser>()
+                                   orderby u.firstName
+                                   select u;
+            //int totalrecords = userListsResults.Count(); //100
+            //int pageCount = totalrecords / pageSize; //10 //page=2
+            //int skip = (pageIndex - 1) * pageSize;
+            //IList<T> Results = userListsResults.Skip(skip).Take(pageSize).ToList();
+
+            PagedResult<JQGUser> r1Result = SampleApp.Core.Utility.Pager<JQGUser>.GetResult(userListsResults, pageIndex, pageSize);
+
+            return ConvertToDTOPage(r1Result);
+
+            //return this.DatabaseContext.ExecuteReader("select * from [dbo].[user]", CommandType.Text , null);
+        }
+
+        //private PagedResult<UserResponse> ConvertToPageResultDTO(PagedResult<User> t)
+        //{
+        //    var r = new PagedResult<UserResponse> { Results = new List<UserResponse>() };
+        //    if (t.Results != null)
+        //    {
+        //        foreach (User v in t.Results)
+        //        {
+        //            var vdto = new UserResponse(v);
+        //            r.Results.Add(vdto);
+        //        }
+        //    }
+        //    r.CurrentPage = t.CurrentPage;
+        //    r.PageCount = t.PageCount;
+        //    r.PageSize = t.PageSize;
+        //    r.RowCount = t.RowCount;
+        //    return r;
+        //}
+
+        public DTOPage<UserResponse> ConvertToDTOPage(PagedResult<JQGUser> entities)
+        {
+            var d = new DTOPage<UserResponse>();
+            if ((entities != null) && (entities.Results != null))
+            {
+                d.Results = entities.Results.Select(e => new UserResponse(e)).ToList();
+                d.PageCount = entities.PageCount;
+                d.PageSize = entities.PageSize;
+                d.RowCount = entities.RowCount;
+                d.CurrentPage = entities.CurrentPage;
+            }
+            return d;
         }
 
         public DataTable GetPagedUsers(int uid, int pageIndex, int pageSize, string filters, string sortColumn, string sortOrder, int active)
