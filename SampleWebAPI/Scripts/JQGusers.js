@@ -5,7 +5,7 @@
         mtype: 'Get',
         colNames: ['uid', 'Firs Name', 'Last Name'],
         colModel: [
-            { key: true, name: 'uid', index: 'uid', editable: true },
+            { key: true, name: 'id', index: 'id', editable: false },
             { key: false, name: 'firstName', index: 'firstName', editable: true },
             { key: false, name: 'lastName', index: 'lastName', editable: true } ],
         pager: jQuery('#pager'),
@@ -13,7 +13,7 @@
         rowList: [10, 20, 30, 40],
         height: '100%',
         viewrecords: true,
-        caption: 'User List',
+        caption: 'Users List',
         emptyrecords: 'No records to display',
         jsonReader: {
             root: "rows",

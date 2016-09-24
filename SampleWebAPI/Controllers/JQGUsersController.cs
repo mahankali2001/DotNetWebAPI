@@ -40,7 +40,7 @@ namespace SampleWebAPI.Controllers
             int pageIndex = Convert.ToInt32(page) - 1;
             int pageSize = rows;
 
-            DTOPage<UserResponse> ur =  jqgUR.GetUsers(sidx, sord, page, rows);
+            DTOPage<UserDTO> ur = jqgUR.GetUsers(sidx, sord, page, rows);
             
             var jsonData = new
             {
@@ -53,17 +53,19 @@ namespace SampleWebAPI.Controllers
         }
 
         // TODO:insert a new row to the grid logic here
-        /*[HttpPost]
-        public string Create([Bind(Exclude = "Id")] TodoList objTodo)
+        //[System.Web.Mvc.HttpPost]
+        //public string Create([Bind(Exclude = "Id")] UserDTO objTodo)
+        public string Create(UserDTO objTodo)
         {
+            
             string msg;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    db.TodoLists.Add(objTodo);
-                    db.SaveChanges();
-                    msg = "Saved Successfully";
+                    //db.TodoLists.Add(objTodo);
+                    //db.SaveChanges();
+                    msg = jqgUR.Create(objTodo);
                 }
                 else
                 {
@@ -76,35 +78,39 @@ namespace SampleWebAPI.Controllers
             }
             return msg;
         }
-        public string Edit(TodoList objTodo)
+        public string Edit(UserDTO objTodo)
         {
             string msg;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    db.Entry(objTodo).State = EntityState.Modified;
-                    db.SaveChanges();
-                    msg = "Saved Successfully";
-                }
-                else
-                {
-                    msg = "Validation data not successfull";
-                }
-            }
-            catch (Exception ex)
-            {
-                msg = "Error occured:" + ex.Message;
-            }
-            return msg;
-        }
-        public string Delete(int Id)
-        {
-            TodoList todolist = db.TodoLists.Find(Id);
-            db.TodoLists.Remove(todolist);
-            db.SaveChanges();
-            return "Deleted successfully";
-        }*/
+                    //db.Entry(objTodo).State = EntityState.Modified;
+                    //db.SaveChanges();
+                    //msg = "Saved Successfully";
 
+                    msg = jqgUR.Update(objTodo);
+                }
+                else
+                {
+                    msg = "Validation data not successfull";
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "Error occured:" + ex.Message;
+            }
+            return msg;
+        }
+        public string Delete(int uid)
+        {
+            //TodoList todolist = db.TodoLists.Find(uid);
+            //db.TodoLists.Remove(todolist);
+            //db.SaveChanges();
+
+            jqgUR.Delete(uid);
+
+            return "Deleted successfully";
+        }
     }
 }

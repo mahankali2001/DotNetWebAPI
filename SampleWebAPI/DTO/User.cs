@@ -7,17 +7,17 @@ using SampleWebAPI.Entities;
 
 namespace SampleWebAPI.DTO
 {
-    public class UserResponse
+    public class UserDTO
     {
-        public int uid { get; set; }
+        public int id { get; set; }
 
         public string firstName { get; set; }
 
         public string lastName { get; set; }
 
-        public UserResponse(JQGUser u)
+        public UserDTO(JQGUser u)
         {
-            uid = u.uid;
+            id = u.uid;
             firstName = u.firstName;
             lastName = u.lastName;
         }

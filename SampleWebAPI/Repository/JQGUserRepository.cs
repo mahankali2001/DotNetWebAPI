@@ -17,7 +17,9 @@ namespace SampleWebAPI.Repository
     {
         string GetHello(string name);
         //DataTable GetUsers();
-        DTOPage<UserResponse> GetUsers(string sidx, string sord, int page, int rows);
+        DTOPage<UserDTO> GetUsers(string sidx, string sord, int page, int rows);
+
+        string Create(UserDTO uDTO);
 
         DataTable GetPagedUsers(int uid, int pageIndex, int pageSize, string filters, string sortColumn,
                            string sortOrder, int active);
@@ -25,6 +27,10 @@ namespace SampleWebAPI.Repository
         User GetUser(int uid);
 
         void Save(User user);
+
+        void Delete(int uid);
+
+        string Update(UserDTO uDTO);
     }
 
     public class JQGUserRepository : EntityRepository, IJQGUserRepository
@@ -40,7 +46,7 @@ namespace SampleWebAPI.Repository
             return String.Format("Hello {0}", name);
         }
 
-        public DTOPage<UserResponse> GetUsers(string sidx, string sord, int pageIndex, int pageSize)  //Gets the todo Lists.
+        public DTOPage<UserDTO> GetUsers(string sidx, string sord, int pageIndex, int pageSize)  //Gets the todo Lists.
         {
             var userListsResults = from u in this.Read<JQGUser>()
                                    orderby u.firstName
@@ -75,16 +81,37 @@ namespace SampleWebAPI.Repository
         //    return r;
         //}
 
-        public DTOPage<UserResponse> ConvertToDTOPage(PagedResult<JQGUser> entities)
+        public DTOPage<UserDTO> ConvertToDTOPage(PagedResult<JQGUser> entities)
         {
-            var d = new DTOPage<UserResponse>();
+            var d = new DTOPage<UserDTO>();
             if ((entities != null) && (entities.Results != null))
             {
-                d.Results = entities.Results.Select(e => new UserResponse(e)).ToList();
+                d.Results = entities.Results.Select(e => new UserDTO(e)).ToList();
                 d.PageCount = entities.PageCount;
                 d.PageSize = entities.PageSize;
                 d.RowCount = entities.RowCount;
                 d.CurrentPage = entities.CurrentPage;
+            }
+            return d;
+        }
+
+        public string Create(UserDTO uDTO)
+        {
+            User u = ConvertToUser(uDTO);
+
+            this.Save(u);
+
+            return "Created Successfully";
+        }
+
+        public User ConvertToUser(UserDTO uDTO)
+        {
+            var d = new User();
+            if (uDTO != null)
+            {
+                d.uid = uDTO.id;
+                d.firstName = uDTO.firstName;
+                d.lastName = uDTO.lastName;
             }
             return d;
         }
@@ -114,6 +141,22 @@ namespace SampleWebAPI.Repository
         public void Save(User entity)
         {
             this.SaveEntityWithAutoId(entity, entity.uid);
+        }
+
+        public void Delete(int uid)
+        {
+            User u = GetUser(uid);
+
+            this.DeleteEntity(u);
+        }
+
+        public string Update(UserDTO uDTO)
+        {
+            User u = ConvertToUser(uDTO);
+            
+            this.Save(u);
+
+            return "Saved Successfully";
         }
     }
 }
