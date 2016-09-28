@@ -24,4 +24,20 @@ namespace SampleWebAPI.DTO
         [DataMember(Order = 5)]
         public List<T> Results { get; set; }
     }
+
+    [DataContract]//(Namespace = ServiceConstants.DMDataBaseAddress, Name = "DTOPageOf{0}")]
+    public class JQGridData<T> where T : class
+    {
+        [DataMember(Order = 1)]
+        public int total { get; set; }
+
+        [DataMember(Order = 2)]
+        public int page { get; set; }
+
+        [DataMember(Order = 3)]
+        public int records { get; set; }
+
+        [DataMember(Order = 4)]
+        public List<T> rows { get; set; }
+    }
 }
